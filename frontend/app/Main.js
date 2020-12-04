@@ -4,7 +4,8 @@ import { useImmerReducer } from "use-immer"
 import { BrowserRouter, Switch, Route } from "react-router-dom"
 import { CSSTransition } from "react-transition-group"
 import Axios from "axios"
-Axios.defaults.baseURL = process.env.BACKENDURL || "https://backendofmyreactapp.herokuapp.com"
+// Axios.defaults.baseURL = process.env.BACKENDURL || ""
+Axios.defaults.baseURL = process.env.BACKENDURL || "http://localhost:8080"
 
 import StateContext from "./StateContext"
 import DispatchContext from "./DispatchContext"
@@ -101,10 +102,17 @@ function Main() {
       const ourRequest = Axios.CancelToken.source()
       async function fetchResults() {
         try {
-          const response = await Axios.post("/checkToken", { token: state.user.token }, { cancelToken: ourRequest.token })
+          const response = await Axios.post(
+            "/checkToken",
+            { token: state.user.token },
+            { cancelToken: ourRequest.token }
+          )
           if (!response.data) {
             dispatch({ type: "logout" })
-            dispatch({ type: "flashMessage", value: "Your session has expired. Please log in again." })
+            dispatch({
+              type: "flashMessage",
+              value: "Your session has expired. Please log in again."
+            })
           }
         } catch (e) {
           console.log("There was a problem or the request was cancelled.")
@@ -149,7 +157,12 @@ function Main() {
               </Route>
             </Switch>
           </Suspense>
-          <CSSTransition timeout={330} in={state.isSearchOpen} classNames="search-overlay" unmountOnExit>
+          <CSSTransition
+            timeout={330}
+            in={state.isSearchOpen}
+            classNames="search-overlay"
+            unmountOnExit
+          >
             <div className="search-overlay">
               <Suspense fallback="">
                 <Search />

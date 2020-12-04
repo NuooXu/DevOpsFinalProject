@@ -24,8 +24,8 @@ function Chat() {
   }, [appState.isChatOpen])
 
   useEffect(() => {
-    socket.current = io(process.env.BACKENDURL || "https://backendofmyreactapp.herokuapp.com")
-
+    // socket.current = io(process.env.BACKENDURL || "https://backendofmyreactapp.herokuapp.com")
+    socket.current = io("http://localhost:8080")
     socket.current.on("chatFromServer", message => {
       setState(draft => {
         draft.chatMessages.push(message)
@@ -52,20 +52,36 @@ function Chat() {
   function handleSubmit(e) {
     e.preventDefault()
     //send message to chat server
-    socket.current.emit("chatFromBrowser", { message: state.fieldValue, token: appState.user.token })
+    socket.current.emit("chatFromBrowser", {
+      message: state.fieldValue,
+      token: appState.user.token
+    })
 
     setState(draft => {
       //add message to state collection of messages
-      draft.chatMessages.push({ message: draft.fieldValue, username: appState.user.username, avatar: appState.user.avatar })
+      draft.chatMessages.push({
+        message: draft.fieldValue,
+        username: appState.user.username,
+        avatar: appState.user.avatar
+      })
       draft.fieldValue = ""
     })
   }
 
   return (
-    <div id="chat-wrapper" className={"chat-wrapper shadow border-top border-left border-right " + (appState.isChatOpen ? "chat-wrapper--is-visible" : "")}>
+    <div
+      id="chat-wrapper"
+      className={
+        "chat-wrapper shadow border-top border-left border-right " +
+        (appState.isChatOpen ? "chat-wrapper--is-visible" : "")
+      }
+    >
       <div className="chat-title-bar bg-primary">
         Chat
-        <span onClick={() => appDispatch({ type: "closeChat" })} className="chat-title-bar-close">
+        <span
+          onClick={() => appDispatch({ type: "closeChat" })}
+          className="chat-title-bar-close"
+        >
           <i className="fas fa-times-circle"></i>
         </span>
       </div>
@@ -98,8 +114,21 @@ function Chat() {
           )
         })}
       </div>
-      <form onSubmit={handleSubmit} id="chatForm" className="chat-form border-top">
-        <input value={state.fieldValue} onChange={handleFieldChange} ref={chatField} type="text" className="chat-field" id="chatField" placeholder="Type a message…" autoComplete="off" />
+      <form
+        onSubmit={handleSubmit}
+        id="chatForm"
+        className="chat-form border-top"
+      >
+        <input
+          value={state.fieldValue}
+          onChange={handleFieldChange}
+          ref={chatField}
+          type="text"
+          className="chat-field"
+          id="chatField"
+          placeholder="Type a message…"
+          autoComplete="off"
+        />
       </form>
     </div>
   )
