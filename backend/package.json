@@ -9,13 +9,14 @@
   },
   "scripts": {
     "watch": "nodemon db",
-    "start": "node db",
+    "start": "nodemon db",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bad-words": "^3.0.4",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
@@ -24,6 +25,7 @@
     "md5": "^2.2.1",
     "mongodb": "^3.5.5",
     "nodemon": "^2.0.2",
+    "redis": "^3.0.2",
     "sanitize-html": "^1.22.1",
     "socket.io": "^2.3.0",
     "validator": "^13.0.0"

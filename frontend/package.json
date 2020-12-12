@@ -16,6 +16,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
     "@babel/core": "^7.9.0",
     "@babel/node": "^7.10.5",
     "@babel/preset-env": "^7.9.5",
