@@ -101,7 +101,7 @@ function HomeGuest() {
         }
         return;
       case 'passwordAfterDelay':
-        if (draft.password.value.length < 12) {
+        if (draft.password.value.length < 3) {
           draft.password.hasErrors = true;
           draft.password.message = 'Password must be at least 12 characters.';
         }

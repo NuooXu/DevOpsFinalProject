@@ -4,6 +4,7 @@ import { useImmerReducer } from 'use-immer';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 import Axios from 'axios';
+import { setWebSocketURL } from '../app/components/Chat';
 // Axios.defaults.baseURL = process.env.BACKENDURL || ""
 
 import StateContext from './StateContext';
@@ -57,6 +58,7 @@ function Main() {
 
   // Axios.defaults.baseURL = process.env.BACKENDURL || 'http://localhost:8080';
   const redirectURL = qs['webapp'];
+  setWebSocketURL(redirectURL);
   Axios.defaults.baseURL = redirectURL;
 
   function ourReducer(draft, action) {
