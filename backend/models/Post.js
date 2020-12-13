@@ -6,8 +6,17 @@ const sanitizeHTML = require('sanitize-html');
 var Filter = require('bad-words');
 var redis = require('redis');
 const { listen } = require('../app');
+const dns = require('dns');
 
-const client = redis.createClient();
+let client = null;
+dns.lookup('redis', (err, address, family) => {
+  if (err) {
+    console.log('cannot get redis ip!');
+  } else {
+    console.log('Redis IP is：' + address + 'IP family is: ' + family);
+    client = redis.createClient('6379', address);
+  }
+});
 
 let Post = function (data, userid, requestedPostId) {
   this.data = data;
