@@ -8,6 +8,7 @@ var redis = require('redis');
 const { listen } = require('../app');
 const dns = require('dns');
 
+let todayTweet = [];
 let client = null;
 dns.lookup('redis', (err, address, family) => {
   if (err) {
@@ -66,7 +67,7 @@ Post.prototype.create = function () {
       filter = new Filter();
       this.data.title = filter.clean(this.data.title);
       this.data.body = filter.clean(this.data.body);
-
+      todayTweet.push({ id: this.userid, data: this.data });
       if (!this.data.title.includes('*') && !this.data.body.includes('*')) {
         //redis store data
         try {
@@ -215,6 +216,12 @@ Post.findByAuthorId = function (authorId) {
     { $match: { author: authorId } },
     { $sort: { createdDate: -1 } },
   ]);
+};
+
+Post.findByAuthorId_today = function (authorId) {
+  todayTweet.forEach(tweet => {
+    if (tweet.id === id) return tweet.data;
+  });
 };
 
 Post.delete = function (postIdToDelete, currentUserId) {

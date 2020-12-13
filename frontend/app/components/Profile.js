@@ -33,6 +33,7 @@ function Profile() {
           draft.profileData = response.data;
         });
       } catch (e) {
+        console.log(Axios.defaults.baseURL);
         console.log(e.response.data);
       }
     }
