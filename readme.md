@@ -62,3 +62,5 @@ chmod +x exec.sh
 Run ./exec.sh
 
 ```
+
+Besides, remember to change the url in the front end Main.js in around 7th line
