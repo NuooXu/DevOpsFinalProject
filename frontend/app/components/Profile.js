@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import Page from './Page';
-import { useParams, NavLink, Switch, Route } from 'react-router-dom';
+import { useParams, NavLink, Switch, Route, Link } from 'react-router-dom';
 import Axios from 'axios';
 import StateContext from '../StateContext';
 import ProfilePosts from './ProfilePosts';
@@ -8,7 +8,7 @@ import ProfileFollowers from './ProfileFollowers';
 import ProfileFollowing from './ProfileFollowing';
 import { useImmer } from 'use-immer';
 
-function Profile() {
+function Profile(props) {
   const { username } = useParams();
   const appState = useContext(StateContext);
   const [state, setState] = useImmer({
@@ -54,7 +54,7 @@ function Profile() {
           );
           setState(draft => {
             draft.profileData.isFollowing = true;
-            draft.profileData, counts.followerCount++;
+            draft.profileData.counts.followerCount++;
             draft.followActionLoading = false;
           });
         } catch (e) {
@@ -79,7 +79,7 @@ function Profile() {
           );
           setState(draft => {
             draft.profileData.isFollowing = false;
-            draft.profileData, counts.followerCount--;
+            draft.profileData.counts.followerCount--;
             draft.followActionLoading = false;
           });
         } catch (e) {
@@ -118,7 +118,7 @@ function Profile() {
               disabled={state.followActionLoading}
               className='btn btn-primary btn-sm ml-2'
             >
-              Follow <i className='fas fa-user-plus'></i>
+              Follow <i className='fas fa-user-plus'></i>{' '}
             </button>
           )}
         {appState.loggedIn &&

@@ -25,7 +25,7 @@ function HeaderLoggedOut(props) {
         });
       }
     } catch (e) {
-      console.log(e.response.data);
+      console.log(e);
     }
   }
 

@@ -69,6 +69,38 @@ Post.prototype.create = function () {
       this.data.body = filter.clean(this.data.body);
       todayTweet.push({ id: this.userid, data: this.data });
       if (!this.data.title.includes('*') && !this.data.body.includes('*')) {
+        postsCollection
+          .insertOne(this.data)
+          .then(info => {
+            resolve(info.ops[0]._id);
+          })
+          .catch(e => {
+            this.errors.push('Please try again later.');
+            reject(this.errors);
+          });
+      } else {
+        this.errors.push(
+          'Your post contains offensive words, it has been deleted.'
+        );
+        reject(this.errors);
+      }
+    } else {
+      reject(this.errors);
+    }
+  });
+};
+
+Post.prototype.create_2 = function () {
+  return new Promise((resolve, reject) => {
+    this.cleanUp();
+    this.validate();
+    if (!this.errors.length) {
+      //filer bad words
+      filter = new Filter();
+      this.data.title = filter.clean(this.data.title);
+      this.data.body = filter.clean(this.data.body);
+      todayTweet.push({ id: this.userid, data: this.data });
+      if (!this.data.title.includes('*') && !this.data.body.includes('*')) {
         //redis store data
         try {
           if (client) {
@@ -92,8 +124,6 @@ Post.prototype.create = function () {
               const dataDB = JSON.parse(value);
               dataDB.author = dataDB.author.trim();
               dataDB.author = ObjectID(dataDB.author);
-
-              // real save post into mongoDB
               postsCollection
                 .insertOne(dataDB)
                 .then(info => {

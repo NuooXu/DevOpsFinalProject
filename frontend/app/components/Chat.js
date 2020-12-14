@@ -5,7 +5,8 @@ import { useImmer } from 'use-immer';
 import { Link } from 'react-router-dom';
 import io, { Socket } from 'socket.io-client';
 
-var weburl = 'http://localhost:8080';
+// var weburl = 'http://localhost:8080';
+var weburl;
 export const setWebSocketURL = url => {
   weburl = url;
 };
@@ -29,7 +30,9 @@ function Chat() {
 
   useEffect(() => {
     // socket.current = io(process.env.BACKENDURL || "https://backendofmyreactapp.herokuapp.com")
-    socket.current = io(weburl);
+    socket.current = io(
+      'http://a19189527b342477ead75aa685d1c68c-1836042969.us-east-2.elb.amazonaws.com'
+    );
     socket.current.on('chatFromServer', message => {
       setState(draft => {
         draft.chatMessages.push(message);

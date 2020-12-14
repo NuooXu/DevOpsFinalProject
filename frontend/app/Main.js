@@ -4,9 +4,10 @@ import { useImmerReducer } from 'use-immer';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 import Axios from 'axios';
-import { setWebSocketURL } from '../app/components/Chat';
-// Axios.defaults.baseURL = process.env.BACKENDURL || ""
+Axios.defaults.baseURL =
+  'http://a19189527b342477ead75aa685d1c68c-1836042969.us-east-2.elb.amazonaws.com';
 
+import { setWebSocketURL } from '../app/components/Chat';
 import StateContext from './StateContext';
 import DispatchContext from './DispatchContext';
 
@@ -27,7 +28,20 @@ const Search = React.lazy(() => import('./components/Search'));
 const Chat = React.lazy(() => import('./components/Chat'));
 import LoadingDotsIcon from './components/LoadingDotsIcon';
 import Sidebar from './components/Sidebar';
+// const qs = (function (a) {
+//   if (a === '') return {};
+//   let b = {};
+//   for (let i = 0; i < a.length; ++i) {
+//     let p = a[i].split('=', 2);
 
+//     if (p.length === 1) b[p[0]] = '';
+//     else b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, ' '));
+//     console.log(b[p[0]]);
+//   }
+//   return b;
+// })(window.location.search.substr(1).split('&'));
+// Axios.defaults.baseURL = qs['webapp'];
+// setWebSocketURL(qs['webapp']);
 function Main() {
   const initialState = {
     loggedIn: Boolean(localStorage.getItem('complexappToken')),
@@ -41,25 +55,9 @@ function Main() {
     isChatOpen: false,
     unreadChatCount: 0,
   };
-
-  //get the imported string
-  const qs = (function (a) {
-    if (a === '') return {};
-    let b = {};
-    for (let i = 0; i < a.length; ++i) {
-      let p = a[i].split('=', 2);
-
-      if (p.length === 1) b[p[0]] = '';
-      else b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, ' '));
-      console.log(b[p[0]]);
-    }
-    return b;
-  })(window.location.search.substr(1).split('&'));
-
-  // Axios.defaults.baseURL = process.env.BACKENDURL || 'http://localhost:8080';
-  const redirectURL = qs['webapp'];
-  setWebSocketURL(redirectURL);
-  Axios.defaults.baseURL = redirectURL;
+  // setWebSocketURL(
+  //   'a19189527b342477ead75aa685d1c68c-1836042969.us-east-2.elb.amazonaws.com'
+  // );
 
   function ourReducer(draft, action) {
     switch (action.type) {
