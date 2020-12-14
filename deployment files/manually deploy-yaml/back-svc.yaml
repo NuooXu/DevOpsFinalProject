@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: final-back-svc
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: final-back
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: final-back
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: final-back
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: final-back
+    spec:
+      containers:
+        - name: final-back
+          image: merphylau/final-be:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          

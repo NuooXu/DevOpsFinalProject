@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: final-front-svc
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 80
+  selector:
+    app: final-front
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: final-front
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: final-front
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: final-front
+    spec:
+      containers:
+        - name: final-front
+          image: merphylau/final-fe:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
