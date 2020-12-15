@@ -7,7 +7,7 @@ port: 3000(frontend) 6379(redis) 8080(backend) \
 # Prerequisites
  1.aws-cli \
  2.kubectl \
- 3.terraform \
+ 3.terraform 
 
 
 
@@ -33,7 +33,7 @@ port: 3000(frontend) 6379(redis) 8080(backend) \
    npm run dev
 ```
 
-# 4. Run back end
+## 4. Run back end
 
 ```
    npm start
