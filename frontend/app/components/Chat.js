@@ -29,7 +29,7 @@ function Chat() {
   }, [appState.isChatOpen]);
 
   useEffect(() => {
-    // socket.current = io(process.env.BACKENDURL || "https://backendofmyreactapp.herokuapp.com")
+    // socket.current = io(process.env.BACKENDURL || "https://localhost:8080")
     socket.current = io(
       'http://a19189527b342477ead75aa685d1c68c-1836042969.us-east-2.elb.amazonaws.com'
     );
