@@ -2,14 +2,14 @@ Structure \
 project: React -> middleware -> backend \
 port: 3000(frontend) 6379(redis) 8080(backend) \
 
-#Prerequisites
-##1.aws-cli
-##2.kubectl
-##3.terraform
+# Prerequisites
+## 1.aws-cli
+## 2.kubectl
+## 3.terraform
 
 
 
-#1. Add a .env file in backend folder with the following
+# 1. Add a .env file in backend folder with the following
 
 ```
    {
@@ -19,25 +19,25 @@ port: 3000(frontend) 6379(redis) 8080(backend) \
    }
 ```
 
-#2. Install all dependencies in 2 frontend folder and backend folder
+# 2. Install all dependencies in 2 frontend folder and backend folder
 
 ```
    npm install
 ```
 
-#3. Run front end
+# 3. Run front end
 
 ```
    npm run dev
 ```
 
-#4. Run back end
+# 4. Run back end
 
 ```
    npm start
 ```
 
-#5. Create a EKS in AWS(under create-EKS file)
+# 5. Create a EKS in AWS(under create-EKS file)
 
 ```
 terraform init
@@ -45,13 +45,13 @@ terraform plan
 terraform apply
 ```
 
-#6. Config the kubectl
+# 6. Config the kubectl
 
 ```
    aws eks --region $(terraform output region) update-kubeconfig --name $(terraform output cluster_name)
 ```
 
-#7. create moniter using metrics server
+# 7. create moniter using metrics server
 
 ```
 wget -O v0.3.6.tar.gz https://codeload.github.com/kubernetes-sigs/metrics-server/tar.gz/v0.3.6 && tar -xzf v0.3.6.tar.gz
@@ -62,7 +62,7 @@ kubectl apply -f https://raw.githubusercontent.com/hashicorp/learn-terraform-pro
 kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep service-controller-token | awk '{print $1}'))
 ```
 
-#8. Do the final deployment(under manually deploy-yaml file)
+# 8. Do the final deployment(under manually deploy-yaml file)
 
 ```
 chmod +x exec.sh
