@@ -1,11 +1,11 @@
-Structure \
+# Structure \
 project: React -> middleware -> backend \
 port: 3000(frontend) 6379(redis) 8080(backend) \
-
+[documentation](https://github.com/NuooXu/DevOpsFinalProject/blob/master/document.pdf)
 # Prerequisites
-## 1.aws-cli
-## 2.kubectl
-## 3.terraform
+ 1.aws-cli
+ 2.kubectl
+ 3.terraform
 
 
 
@@ -73,4 +73,4 @@ Run ./exec.sh
 Besides, remember to change the url in the DevOpsFinalProject/frontend/app/Main.js in around 7th line
 and DevOpsFinalProject/frontend/app/components/Chat.js around 33th line
 
-[documentation](https://github.com/NuooXu/DevOpsFinalProject/blob/master/document.pdf)
+
