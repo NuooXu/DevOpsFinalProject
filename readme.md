@@ -3,7 +3,7 @@ project: React -> middleware -> backend \
 port: 3000(frontend) 6379(redis) 8080(backend) \
 
 [documentation](https://github.com/NuooXu/DevOpsFinalProject/blob/master/document.pdf)
-
+[Create EKS-source code](https://github.com/Merphyy/eks-files)
 # Prerequisites
  1.aws-cli \
  2.kubectl \
