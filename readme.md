@@ -72,7 +72,15 @@ Run ./exec.sh
 
 ```
 
-Besides, remember to change the url in the DevOpsFinalProject/frontend/app/Main.js in around 7th line
-and DevOpsFinalProject/frontend/app/components/Chat.js around 33th line
+## 9.Run the application with following commands.
+
+```
+kubectl get service
+
+```
+The two services are named final-front-svc, final-back-svc. We could see both the front-end-url and back-end-url in terminal. 
+Use the url pattern front-end-url/?webapp=back-end-url, then you could see the correct results.
+
+
 
 
